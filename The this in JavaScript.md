@@ -70,6 +70,71 @@ arr.0.call(arr) // 注意这里的0是函数名
 * `this` 就是你 call 一个函数时，传入的第一个参数。（请务必背下来「this 就是 call 的第一个参数」）
 * 如果你的函数调用形式不是 call 形式，请按照「转换代码」将其转换为 call 形式。
 
+## 实战中的this
+### EventHandler中的this
+```js
+btn.addEventListener('click' ,function handler(){
+  console.log(this) // 请问这里的 this 是什么
+})
+```
+this 都是由 call 或 apply 指定的，那么只需要找到`handler 被调用时`的代码就行了。    
+可是 `addEventListener` 是浏览器内置的方法，找不到它被调用时的上下文。   
+
+MDN文档这样说:    
+> 通常来说this的值是触发事件的元素的引用，这种特性在多个相似的元素使用同一个通用事件监听器时非常让人满意。    
+当使用 addEventListener() 为一个元素注册事件的时候，句柄里的`this`值是`该元素的引用`。其与传递给句柄的 event 参数的 currentTarget 属性的值一样。
+
+于是可以假象浏览器的调用过程：
+```js
+// 当事件被触发时
+handler.call(event.currentTarget, event) 
+// 那么 this 是什么不言而喻
+```
+
+### jQuery Event Handler 中的 this
+```js
+$ul.on('click', 'li' , function(){
+  console.log(this)
+})
+```
+jQuery 文档是这样写的：
+> 当jQuery的调用处理程序时，`this`关键字指向的是`当前正在执行事件的元素`。  
+> 对于直接事件而言，`this` 代表`绑定事件的元素`。   
+> 对于代理事件而言，`this` 则代表了`与 selector 相匹配的元素`。(注意，如果事件是从后代元素冒泡上来的话，那么 this 就有可能不等于 event.target.)  
+> 若要使用 jQuery 的相关方法，可以根据当前元素创建一个 jQuery 对象，即使用 $(this)。
+
+## 如何强制制定this的值
+自己写`apply/call`即可:
+```js
+function handlerWrapper(event){
+  function handler(){
+    console.log(this) // 请问这里的 this 是什么
+  }
+
+  handler.call({name:'饥人谷'}, event)
+}
+btn.addEventListener('click', handlerWrapper)
+```
+`bind`的效果也是类似的:
+```js
+function handler(){
+  console.log(this) // 请问这里的 this 是什么
+}
+var handlerWrapper = handler.bind({name:'饥人谷'})
+btn.addEventListener('click', handlerWrapper)
+```
+上面三句可以挤成一句：
+```js
+btn.addEventListener('click', function(){
+  console.log(this) // 请问这里的 this 是什么
+}.bind({name:'饥人谷'}))
+```
+
+
+
+
+
+
 
 
 
