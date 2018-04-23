@@ -40,6 +40,15 @@ int result = 0;
     Emit(AsString(result));
 ```
 
+### More Example 更多例子
+#### Distributed Grep 分布式grep
+map: 如果某行匹配了pattern，则将该行提出；
+reduce: 将所有匹配的行写入输出；
+#### Count of URL Access Frequency url访问频率统计
+map: 记录所有的请求并按<url, 1>格式输出；
+reduce: 对同样的url求和并输出<url, totalCount>
+
+
 
 
 
