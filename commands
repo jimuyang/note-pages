@@ -1,6 +1,10 @@
+// 让一个进程在后台运行 
 nohup command > myout.file 2>&1 &
 nohup java -jar target/eureka-server.jar > server.log 2>&1 &
 
 jobs //查看运行在后台的任务 另一终端无效 
 ps aux | grep eureka 
 
+// mysql
+mysql -u root //使用root账户登录
+show create table user; // ddl
