@@ -8,3 +8,38 @@ ps aux | grep eureka
 // mysql
 mysql -u root //使用root账户登录
 show create table user; // ddl
+quit;
+
+// ruby and gem
+ruby -v
+
+//1.删除原gem源
+gem sources --remove https://rubygems.org/
+
+//2.添加国内淘宝源
+gem sources -a https://ruby.taobao.org/
+
+//3.打印是否替换成功
+gem sources -l
+
+//4.更换成功后打印如下
+*** CURRENT SOURCES ***
+https://ruby.taobao.org/
+
+gem install sass
+gem install compass
+gem list
+gem update sass
+
+// sass 
+sass -h
+//单文件转换命令
+sass input.scss output.css
+
+//单文件监听命令
+sass --watch input.scss:output.css
+
+//如果你有很多的sass文件的目录，你也可以告诉sass监听整个目录：
+sass --watch app/sass:public/stylesheets
+
+
