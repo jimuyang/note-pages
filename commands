@@ -8,7 +8,9 @@ ps aux | grep eureka
 // mysql
 mysql -u root //使用root账户登录
 show create table user; // ddl
-quit;
+source /Users/muyi/Coding/Github/py-nature-web/www/orm/schema.sql
+set password for root@localhost = password('root'); //修改密码 需要先进入mysql
+quit
 
 // ruby and gem
 ruby -v
@@ -43,3 +45,7 @@ sass --watch input.scss:output.css
 sass --watch app/sass:public/stylesheets
 
 
+//python 
+virtualenv --no-site-packages venv //使用virtual env
+source venv/bin/activate
+deactivate
