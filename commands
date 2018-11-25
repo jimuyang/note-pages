@@ -47,5 +47,8 @@ sass --watch app/sass:public/stylesheets
 
 //python 
 virtualenv --no-site-packages venv //使用virtual env
+python3 -m venv ~/Coding/Github/muyi-blog/pyblog/venv //python3.5之后
 source venv/bin/activate
 deactivate
+
+4009203665
