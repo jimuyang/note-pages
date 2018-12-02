@@ -52,3 +52,9 @@ source venv/bin/activate
 deactivate
 
 4009203665
+
+
+# mac 文件易损坏、安装其他来源的应用时：
+sudo spctl --master-disable
+此时前往 安全性与隐私-通用 会出现 允许从以下位置下载的应用：任何来源
+
