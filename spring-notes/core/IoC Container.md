@@ -3,8 +3,6 @@
 
 # The IoC Container
 
-
-
 #### IoC: Inversion of Control 控制反转 
 
 #### DI: Dependency Injection 依赖注入
@@ -12,7 +10,12 @@
 IoC Container的核心内容在 org.springframework.beans和org.springframework.context包内
 
 #### ApplicationContext 应用上下文
-sub-interface 子接口of BeanFactory
+ApplicationContext是BeanFactory的子接口，或者说超集，在BeanFactory的基础上增加了：
+* 可以方便的和Spring AOP继承
+* 消息资源处理（用于国际化）
+* 事件触发
+* 提供了一些方便在应用层使用的子类如：WebApplicationContext
+
 在spring中专门用于IoC Container.
 
 #### Bean bean
@@ -29,8 +32,23 @@ Spring提供了几个标准的ApplicationContext实现：ClassPathXmlApplication
 
 #### Configuration Metadata 配置元数据
 通常为：xml java注解 javacode
-xml中配置bean：<beans></beans>
 java注解配置bean：@Bean in @Configuration
+
+一个典型的XML-based configuration metadata:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="..." class="...">   
+        <!-- collaborators and configuration for this bean go here -->
+    </bean>
+    <!-- more bean definitions go here -->
+</beans>
+
+```
 
 #### Use the Container
 use the ApplicationContext like:
