@@ -42,10 +42,46 @@ java注解配置bean：@Bean in @Configuration
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <import resource="services.xml"/>
+    <import resource="resources/messageSource.xml"/>
+    <!-- 上下的写法是一致的 是相对路径 因此不推荐写/ -->
+    <import resource="/resources/themeSource.xml"/>
+
+    <!-- 一个简单的bean -->
     <bean id="..." class="...">   
         <!-- collaborators and configuration for this bean go here -->
     </bean>
+
+    <!-- 通过工厂静态方法创建实例bean -->
+    <bean id="clientService" class="examples.ClientService" factory-method="createInstance"/>
+
+    <!-- 通过工厂Bean创建实例bean -->
+    <!-- the factory bean, which contains a method called createInstance() -->
+    <bean id="serviceLocator" class="examples.DefaultServiceLocator">
+        <!-- inject any dependencies required by this locator bean -->
+    </bean>
+    <!-- the bean to be created via the factory bean -->
+    <bean id="clientService" factory-bean="serviceLocator" factory-method="createClientServiceInstance"/>
+
+    <!-- 构造方法注入bean -->
+     <bean id="thingOne" class="x.y.ThingOne">
+        <constructor-arg ref="thingTwo"/>
+        <constructor-arg ref="thingThree"/>
+    </bean>
+    <bean id="thingTwo" class="x.y.ThingTwo"/>
+    <bean id="thingThree" class="x.y.ThingThree"/>
+
+    <!-- 构造方法注入value -->
+    <bean id="exampleBean" class="examples.ExampleBean">
+        <constructor-arg name="years" type="int" value="7500000"/>
+        <constructor-arg type="java.lang.String" value="42"/>
+    </bean>
+
+
     <!-- more bean definitions go here -->
+
+    <!-- 给一个bean提供别名 -->
+    <alias name="fromName" alias="toName"/>
 </beans>
 
 ```
@@ -69,7 +105,7 @@ new XmlBeanDefinitionReader(context).loadBeanDefinitions("services.xml", "daos.x
 context.refresh();
 ```
 
-#### Bean Definition
+#### Bean Definition 初始化Bean的配方
 Within the container itself, these bean definitions are represented as BeanDefinition objects, which contain (among other information) the following metadata:
 
 * A package-qualified class name: typically, the actual implementation class of the bean being defined. => Bean的实现类
@@ -79,6 +115,19 @@ Within the container itself, these bean definitions are represented as BeanDefin
 * References to other beans that are needed for the bean to do its work. These references are also called collaborators or dependencies. => 依赖bean的引用
 
 * Other configuration settings to set in the newly created object — for example, the size limit of the pool or the number of connections to use in a bean that manages a connection pool.
+
+Bean Definition Table: 一个BeanDefinition的属性有：
+Class Name Scope ConstrucotrArguments Properties AutowiringMode LazyMode InitializationMode DestructionMode
+
+
+#### Dependencies 依赖
+
+Dependency injection (DI) is a process whereby objects define their dependencies (that is, the other objects with which they work) only through constructor arguments, arguments to a factory method, or properties that are set on the object instance after it is constructed or returned from a factory method. 
+通过构造方法参数，工厂方法参数，或者属性注入
+DI exists in two major variants: Constructor-based dependency injection and Setter-based dependency injection.
+
+
+
 
 
 
