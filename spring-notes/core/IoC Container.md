@@ -77,7 +77,16 @@ java注解配置bean：@Bean in @Configuration
         <constructor-arg type="java.lang.String" value="42"/>
     </bean>
 
+    <!-- 使用depends-on来决定初始化顺序 事实上它还可以决定detroy顺序 -->
+    <bean id="beanOne" class="ExampleBean" depends-on="manager,accountDao">
+        <property name="manager" ref="manager" />
+    </bean>
+    <bean id="manager" class="ManagerBean" />
+    <bean id="accountDao" class="x.y.jdbc.JdbcAccountDao" />
 
+    <!-- lazy-init来懒加载 事实上通过<beans default-lazy-init="true">来关闭pre-instantiate-->
+    <bean id="lazy" class="com.something.ExpensiveToCreateBean" lazy-init="true"/>
+    <bean name="not.lazy" class="com.something.AnotherBean"/>
     <!-- more bean definitions go here -->
 
     <!-- 给一个bean提供别名 -->
@@ -126,6 +135,19 @@ Dependency injection (DI) is a process whereby objects define their dependencies
 通过构造方法参数，工厂方法参数，或者属性注入
 DI exists in two major variants: Constructor-based dependency injection and Setter-based dependency injection.
 
+##### Spring的依赖解析过程
+* 读取Configuration metadata(可能为：XML,Java code, annotation)来创建和初始化ApplicationContext; 注意BeanDefinition只是配方 没有创建bean
+* 当bean真正开始创建的时候，给它们提供依赖的bean
+* spring会自动将提供的string类型的属性值转化为built-in类型 如int long String boolean等等
+
+Spring容器会在创建时检查每个bean的定义，但是属性只在真正创建初始化bean的时候才会注入。 Singleton-scoped的Bean和pre-instantiated预实例化的Bean会在容器创建完成后立刻开始创建，其他情况下，bean只在被需要（required）时被创建。
+
+> This potentially delayed visibility of some configuration issues is why ApplicationContext implementations by default pre-instantiate singleton beans. 
+为了尽早发现bean配置的问题，ApplicationContext的默认实现都会预初始化singleton-scoped的bean（带来的是前期的时间和内存开销）
+
+`Spring保证在向beanA注入beanB前(例如调用setter前)，beanB已经被完全实例化了，换句话说，lifecycleMethods都已经invoked.`
+
+> Spring sets properties and resolves dependencies as late as possible, when the bean is actually created. 
 
 
 
