@@ -63,6 +63,51 @@ java注解配置bean：@Bean in @Configuration
     <!-- the bean to be created via the factory bean -->
     <bean id="clientService" factory-bean="serviceLocator" factory-method="createClientServiceInstance"/>
 
+    <!-- inner beans -->
+    <bean id="outer" class="...">
+        <!-- instead of using a reference to a target bean, simply define the target bean inline -->
+        <property name="target">
+            <bean class="com.example.Person"> <!-- this is the inner bean -->
+                <property name="name" value="Fiona Apple"/>
+                <property name="age" value="25"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- Collections -->
+    <bean id="moreComplexObject" class="example.ComplexObject">
+        <!-- results in a setAdminEmails(java.util.Properties) call -->
+        <property name="adminEmails">
+            <props>
+                <prop key="administrator">administrator@example.org</prop>
+                <prop key="support">support@example.org</prop>
+                <prop key="development">development@example.org</prop>
+            </props>
+        </property>
+        <!-- results in a setSomeList(java.util.List) call -->
+        <property name="someList">
+            <list>
+                <value>a list element followed by a reference</value>
+                <ref bean="myDataSource" />
+            </list>
+        </property>
+        <!-- results in a setSomeMap(java.util.Map) call -->
+        <property name="someMap">
+            <map>
+                <entry key="an entry" value="just some string"/>
+                <entry key ="a ref" value-ref="myDataSource"/>
+            </map>
+        </property>
+        <!-- results in a setSomeSet(java.util.Set) call -->
+        <property name="someSet">
+            <set>
+                <value>just some string</value>
+                <ref bean="myDataSource" />
+            </set>
+        </property>
+    </bean>
+
+
     <!-- 构造方法注入bean -->
      <bean id="thingOne" class="x.y.ThingOne">
         <constructor-arg ref="thingTwo"/>
@@ -134,6 +179,10 @@ Class Name Scope ConstrucotrArguments Properties AutowiringMode LazyMode Initial
 Dependency injection (DI) is a process whereby objects define their dependencies (that is, the other objects with which they work) only through constructor arguments, arguments to a factory method, or properties that are set on the object instance after it is constructed or returned from a factory method. 
 通过构造方法参数，工厂方法参数，或者属性注入
 DI exists in two major variants: Constructor-based dependency injection and Setter-based dependency injection.
+
+> The <list/>, <set/>, <map/>, and <props/> elements set the properties and arguments of the Java Collection types List, Set, Map, and Properties, respectively.
+> The value of a map key or value, or a set value, can also be any of the following elements:
+> bean | ref | idref | list | set | map | props | value | null
 
 ##### Spring的依赖解析过程
 * 读取Configuration metadata(可能为：XML,Java code, annotation)来创建和初始化ApplicationContext; 注意BeanDefinition只是配方 没有创建bean
