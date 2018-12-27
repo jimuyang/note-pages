@@ -198,8 +198,12 @@ Spring容器会在创建时检查每个bean的定义，但是属性只在真正�
 
 > Spring sets properties and resolves dependencies as late as possible, when the bean is actually created. 
 
+### Naming Beans
 
+#### Bean Naming Conventions
+The convention is to use the standard Java convention for instance field names when naming beans. That is, bean names start with a lowercase letter and are camel-cased from there. Examples of such names include accountManager, accountService, userDao, loginController, and so forth.
 
+Naming beans consistently makes your configuration easier to read and understand. Also, if you use Spring AOP, it helps a lot when applying advice to a set of beans related by name.
 
 
 
