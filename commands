@@ -1,3 +1,9 @@
+# tencent cloud 
+# ssh进入腾讯云ECS
+ssh root@118.24.127.29 -i ~/Coding/muyi-tencent-private-key 
+
+
+
 // 让一个进程在后台运行 
 nohup command > myout.file 2>&1 &
 nohup java -jar target/eureka-server.jar > server.log 2>&1 &
