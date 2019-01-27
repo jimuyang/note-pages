@@ -80,6 +80,11 @@ Here another one
 Greets to Corby
 
 ###### VIM #####
-取消高亮 :noh
+:noh       取消高亮
+'.         前往最后编辑的行
+D		   删除知道行尾
+zt		   将编辑的行置于屏幕顶端
+zc 		   关闭折叠
+zo         打开折叠
 
 
