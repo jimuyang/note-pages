@@ -79,6 +79,12 @@ Here another one
 7LZWT-V0GG9-K1P2E-MYWJK-PPZZV
 Greets to Corby
 
-
+###### VIM #####
+:noh       取消高亮
+'.         前往最后编辑的行
+D		   删除知道行尾
+zt		   将编辑的行置于屏幕顶端
+zc 		   关闭折叠
+zo         打开折叠
 
 
