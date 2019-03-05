@@ -2,35 +2,30 @@
 # ssh进入腾讯云ECS
 ssh root@118.24.127.29 -i ~/Coding/muyi-tencent-private-key 
 
-
-
-// 让一个进程在后台运行 
+# 让一个进程在后台运行 
 nohup command > myout.file 2>&1 &
 nohup java -jar target/eureka-server.jar > server.log 2>&1 &
 
 jobs //查看运行在后台的任务 另一终端无效 
 ps aux | grep eureka 
 
-// mysql
+# mysql
 mysql -u root //使用root账户登录
 show create table user; // ddl
 source /Users/muyi/Coding/Github/py-nature-web/www/orm/schema.sql
 set password for root@localhost = password('root'); //修改密码 需要先进入mysql
 quit
 
-// ruby and gem
+# ruby and gem
 ruby -v
-
-//1.删除原gem源
+# 1.删除原gem源
 gem sources --remove https://rubygems.org/
-
-//2.添加国内淘宝源
+# 2.添加国内淘宝源
 gem sources -a https://ruby.taobao.org/
-
-//3.打印是否替换成功
+# 3.打印是否替换成功
 gem sources -l
 
-//4.更换成功后打印如下
+# 4.更换成功后打印如下
 *** CURRENT SOURCES ***
 https://ruby.taobao.org/
 
@@ -39,19 +34,19 @@ gem install compass
 gem list
 gem update sass
 
-// sass 
+# sass 
 sass -h
-//单文件转换命令
+# 单文件转换命令
 sass input.scss output.css
 
-//单文件监听命令
+# 单文件监听命令
 sass --watch input.scss:output.css
 
-//如果你有很多的sass文件的目录，你也可以告诉sass监听整个目录：
+# 如果你有很多的sass文件的目录，你也可以告诉sass监听整个目录：
 sass --watch app/sass:public/stylesheets
 
 
-//python 
+# python 
 virtualenv --no-site-packages venv //使用virtual env
 python3 -m venv ~/Coding/Github/muyi-blog/pyblog/venv //python3.5之后
 source venv/bin/activate
@@ -59,27 +54,11 @@ deactivate
 
 4009203665
 
-
 # mac 文件易损坏、安装其他来源的应用时：
 sudo spctl --master-disable
 此时前往 安全性与隐私-通用 会出现 允许从以下位置下载的应用：任何来源
 
-# vmware 
-Some good serial numbers..
-
-KGLWE-VA5KZ-D1QHT-2R51Q-ZKQVV
-VTZMD-ZYTKX-D1ZCR-C6QCZ-QZZEV
-GQZX9-ZFX3T-Z1Z6Y-AFPCW-ZZ5GZ
-THQQR-00TZQ-81L0R-10LEG-G2ZTZ
-P1VXR-GFNGC-R1JJR-JXG3T-PQ7XT
-ZXYXY-VMTKZ-Y1YCX-7MQ9X-MQQ6V
-
-
-Here another one
-7LZWT-V0GG9-K1P2E-MYWJK-PPZZV
-Greets to Corby
-
-###### VIM #####
+#---------------------------------------------- VIM ------------------------------------------#
 :noh       取消高亮
 '.         前往最后编辑的行
 D		   删除知道行尾
